@@ -345,34 +345,28 @@
           </div>
         </div>
 
+        <div class="actions actions-stack">
+          <!-- Row 1: Downloads -->
+          <div class="actions-row">
+            <button id="downloadZipBtn" type="button" class="btn primary">Download ZIP</button>
+            <button id="downloadCsvBtn" type="button" class="btn secondary small">Download CSV</button>
+            <button id="downloadJsonBtn" type="button" class="btn secondary small">Download JSON</button>
+            <button id="downloadBatchFileBtn" type="button" class="btn secondary small">Download Batch File</button>
+          </div>
 
-
-
-
-        <div class="actions">
-          <button id="downloadZipBtn" type="button" class="btn primary">Download ZIP</button>
-          <button id="downloadCsvBtn" type="button" class="btn secondary">Download CSV</button>
-          <button id="downloadJsonBtn" type="button" class="btn secondary">Download JSON</button>
-          <button id="downloadBatchFileBtn" type="button" class="btn secondary">Download Batch File</button>
-
-          <span class="spacer"></span>
-
-          <div class="btn-group" role="group" aria-label="Copy batch data">
+          <!-- Row 2: Copy / Open / Clear -->
+          <div class="actions-row">
             <button id="copyBatchCsvBtn" type="button" class="btn secondary small">Copy CSV</button>
             <button id="copyBatchJsonBtn" type="button" class="btn secondary small">Copy JSON</button>
             <button id="copyBatchUrlsBtn" type="button" class="btn secondary small">Copy URL list</button>
+
+            <button id="openFirstBtn" type="button" class="btn secondary small">Open first valid</button>
+
+            <span class="actions-row-spacer"></span>
+
+            <button id="resetBtnBatch" type="button" class="btn danger secondary small">Clear</button>
           </div>
-
-          <!--
-          <button id="copyBatchBtn" type="button" class="btn secondary">Copy</button>
-          -->
-
-
-          <button id="openFirstBtn" type="button" class="btn secondary">Open first valid</button>
-          <button id="resetBtnBatch" type="button" class="btn danger secondary">Clear</button>
         </div>
-
-
 
       </section>
 

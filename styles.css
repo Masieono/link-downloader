@@ -271,6 +271,26 @@ code{
   align-items:center;
 }
 
+/* Stack action rows vertically */
+.actions.actions-stack {
+  display: grid;
+  gap: 10px;
+}
+
+/* Each row is a flex toolbar that can wrap cleanly */
+.actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Spacer that only affects alignment inside a single row */
+.actions-row-spacer {
+  flex: 1 1 auto;
+}
+
+
 .spacer{
   flex: 1 1 auto;
   min-width: 10px;
