@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Link File Generator</title>
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- (icons later) -->
+  <!-- <link rel="icon" href="./assets/icons/favicon.svg" type="image/svg+xml"> -->
+</head>
+
+<body>
+  <main class="app">
+    <div class="card">
+
+      <!-- Header -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 class="app-title">Link File Generator</h1>
+          <p class="app-subtitle">
+            Create redirect link files from one URL or a batch. Everything runs locally in your browser.
+          </p>
+        </div>
+
+        <div class="topbar-right">
+          <button id="themeToggleBtn" type="button" class="btn secondary small">
+            Theme
+          </button>
+        </div>
+      </header>
+
+      <!-- Mode toggle -->
+      <div class="setting-row mt-12">
+        <label class="setting-label">Mode</label>
+
+        <div class="choice-row setting-choices" role="radiogroup" aria-label="Mode">
+          <label class="choice-pill">
+            <input type="radio" name="mode" value="single" checked />
+            <span class="choice-pill-title">Single</span>
+            <!-- <span class="choice-pill-sub">One link</span> -->
+          </label>
+
+          <label class="choice-pill">
+            <input type="radio" name="mode" value="batch" />
+            <span class="choice-pill-title">Batch</span>
+            <!-- <span class="choice-pill-sub">ZIP</span> -->
+          </label>
+        </div>
+      </div>
+
+      <div id="modeHelp" class="hint" style="margin-top:10px;"></div>
+
+      <!-- File type selection -->
+      <div class="setting-row mt-12">
+        <label class="setting-label">File type</label>
+
+        <div class="choice-row setting-choices" role="radiogroup" aria-label="File type">
+          <label class="choice-pill">
+            <input type="radio" name="fileType" value="html" checked />
+            <span class="choice-pill-title">Redirect</span>
+            <span class="choice-pill-sub">HTML</span>
+          </label>
+
+          <label class="choice-pill">
+            <input type="radio" name="fileType" value="url" />
+            <span class="choice-pill-title">Windows</span>
+            <span class="choice-pill-sub">.url</span>
+          </label>
+
+          <label class="choice-pill">
+            <input type="radio" name="fileType" value="webloc" />
+            <span class="choice-pill-title">macOS</span>
+            <span class="choice-pill-sub">.webloc</span>
+          </label>
+        </div>
+      </div>
+
+      <div id="fileTypeHelp" class="hint" style="margin-top:10px;"></div>
+
+      <!-- URL handling selection -->
+      <div class="setting-row mt-12">
+        <label class="setting-label">URL handling</label>
+
+        <div class="choice-row setting-choices" role="radiogroup" aria-label="URL handling">
+          <label class="choice-pill">
+            <input type="radio" name="urlMode" value="full" checked />
+            <span class="choice-pill-title">Preserve</span>
+            <span class="choice-pill-sub">Full</span>
+          </label>
+
+          <label class="choice-pill">
+            <input type="radio" name="urlMode" value="stripTracking" />
+            <span class="choice-pill-title">Strip</span>
+            <span class="choice-pill-sub">Tracking</span>
+          </label>
+
+          <label class="choice-pill">
+            <input type="radio" name="urlMode" value="stripAll" />
+            <span class="choice-pill-title">Strip</span>
+            <span class="choice-pill-sub">All</span>
+          </label>
+        </div>
+      </div>
+
+      <div id="urlModeHelp" class="hint" style="margin-top:10px;"></div>
+
+      <!-- Single mode -->
+      <section id="singlePanel" class="section">
+        <label for="urlInput">URL</label>
+        <input
+          id="urlInput"
+          type="text"
+          inputmode="url"
+          placeholder="https://example.com"
+          autocomplete="off"
+          spellcheck="false"
+        />
+
+        <label for="fileName">Filename (optional)</label>
+        <input
+          id="fileName"
+          type="text"
+          placeholder="Leave blank to auto-name"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <div class="hint">
+          If blank, we’ll derive a safe name from the hostname (minus the TLD).
+          Example: <code>fonts.google.com</code> → <code>fonts.google</code>
+        </div>
+
+        <div class="actions">
+          <button id="downloadBtn" type="button" class="btn primary">Download</button>
+          <button id="copyBtn" type="button" class="btn secondary">Copy normalized URL</button>
+          <button id="openNowBtn" type="button" class="btn secondary">Open link now</button>
+
+          <span class="spacer"></span>
+
+          <button id="resetBtn" type="button" class="btn danger secondary">Clear</button>
+          <button id="factoryResetBtn" type="button" class="btn danger secondary">Factory reset</button>
+        </div>
+
+        <button id="showQrBtn" type="button" class="btn secondary">Show QR</button>
+
+        <div id="qrPanel" class="qr-panel" hidden>
+          <div class="qr-row">
+            <div class="muted" style="font-size:13px;">QR for effective URL</div>
+          </div>
+
+          <label class="option">
+            Foreground
+            <input id="qrFg" type="color" value="#000000" />
+          </label>
+
+          <label class="option">
+            Background
+            <input id="qrBg" type="color" value="#ffffff" />
+          </label>
+
+          <label class="option">
+            <input id="qrTransparent" type="checkbox" />
+            Transparent background
+          </label>
+
+          <div id="qrWarn" class="hint" style="display:none;">
+            ⚠️ Low contrast — QR may be hard to scan.
+          </div>
+
+          <label class="option">
+            Border (quiet zone)
+            <input id="qrMargin" type="number" min="0" max="32" step="1" value="4" />
+          </label>
+
+          <label class="option">
+            Download size
+            <select id="qrSize" class="select">
+              <option value="small">Small</option>
+              <option value="medium" selected>Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </label>
+
+          <label class="option">
+            ECC (error correction)
+            <select id="qrEcc" class="select">
+              <option value="L">L (smallest)</option>
+              <option value="M" selected>M (default)</option>
+              <option value="Q">Q (more resilient)</option>
+              <option value="H">H (most resilient)</option>
+            </select>
+          </label>
+
+          <div class="qr-grid">
+            <div class="qr-box">
+              <div class="qr-title">Preview (PNG)</div>
+              <img id="qrImg" alt="QR code preview" />
+            </div>
+
+            <div class="qr-actions">
+              <button id="qrCopyUrlBtn" type="button" class="btn secondary">Copy URL</button>
+              <button id="qrCopySvgBtn" type="button" class="btn secondary">Copy SVG</button>
+              <button id="qrDlPngBtn" type="button" class="btn primary">Download PNG</button>
+              <button id="qrDlSvgBtn" type="button" class="btn primary">Download SVG</button>
+            </div>
+          </div>
+
+          <div class="hint">Tip: QR uses the same URL mode as your downloads.</div>
+        </div>
+      </section>
+
+      <!-- Batch mode -->
+      <section id="batchPanel" class="section" hidden>
+        <label for="batchInput">URLs (one per line — or drop a CSV/JSON/batch file here)</label>
+        <textarea
+          id="batchInput"
+          placeholder="https://example.com&#10;www.google.com&#10;fonts.google.com"
+          spellcheck="false"
+        ></textarea>
+
+        <!-- Import bar -->
+        <div id="dropZone" class="dropzone" tabindex="0" aria-label="Import files">
+          <div class="dropzone-row">
+            <div class="dropzone-text">
+              <strong>Import:</strong> Drag &amp; drop a Batch File, CSV, or JSON
+              <small>Supported: .json (batch/export/url list), .csv (url column), .txt (one URL per line)</small>
+            </div>
+
+            <button id="chooseImportBtn" type="button" class="btn secondary">Choose file</button>
+            <input
+              id="importAnyFileInput"
+              type="file"
+              accept=".json,.csv,.txt,application/json,text/csv,text/plain"
+              hidden
+            />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="zipName">Filename (optional)</label>
+            <input
+              id="zipName"
+              type="text"
+              placeholder="Leave blank for links.zip"
+              autocomplete="off"
+              spellcheck="false"
+            />
+
+      <!-- Batch options (collapsible) -->
+      <details id="batchOptionsDetails" class="details-card mt-12">
+        <summary class="details-summary">
+          <span class="details-summary-left">
+            <span class="details-summary-title">Batch options</span>
+          </span>
+        </summary>
+
+        <div class="details-body">
+          <div class="options" style="margin-top:0;">
+            <label class="option">
+              <input type="checkbox" id="optImportAppend" checked />
+              Append on import
+            </label>
+
+            <label class="option">
+              <input id="optDedupe" type="checkbox" />
+              Remove duplicates
+            </label>
+
+            <div id="dedupeStrengthWrap">
+              <label class="mt-12">Deduping strength</label>
+              <select id="dedupeMode" class="select">
+                <option value="exact" selected>Exact</option>
+                <option value="loose">Loose (ignore www + trailing slash)</option>
+                <option value="aggressive">Aggressive (canonical-ish)</option>
+              </select>
+              <div class="hint">
+                Loose is usually best. Aggressive may merge URLs you’d prefer to keep separate.
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="hint">
+              These control CSV/JSON exports and copy actions. (Batch File export stays standardized.)
+            </div>
+
+            <label class="option">
+              <input id="optExportCsv" type="checkbox" checked />
+              Include CSV export in ZIP
+            </label>
+
+            <label class="option">
+              <input id="optExportJson" type="checkbox" checked />
+              Include JSON export in ZIP
+            </label>
+
+            <label class="option">
+              <input id="optQrPng" type="checkbox" />
+              Include QR PNGs in ZIP
+            </label>
+
+            <label class="option">
+              <input id="optQrSvg" type="checkbox" />
+              Include QR SVGs in ZIP
+            </label>
+          </div>
+        </div>
+      </details>
+
+      <!-- Export schema (separate collapsible) -->
+      <details id="exportSchemaDetails" class="details-card mt-12">
+        <summary class="details-summary">
+          <span class="details-summary-left">
+            <span class="details-summary-title">Export schema</span>
+            <span class="muted details-summary-sub" id="exportSchemaSummaryText">Defaults</span>
+          </span>
+        </summary>
+
+        <div class="details-body">
+          <div class="hint" style="margin-top:0;">
+            Pick fields to include, then drag to reorder. Applies to CSV + JSON exports (and ZIP exports).
+          </div>
+
+          <div class="schema-wrap">
+            <div class="schema-col">
+              <div class="schema-title">Selected (drag to reorder)</div>
+              <ul id="exportFieldsSelected" class="schema-selected" aria-label="Selected export fields"></ul>
+            </div>
+
+            <div class="schema-col">
+              <div class="schema-title">Available fields</div>
+              <div id="exportFieldsAvailable" class="schema-available"></div>
+            </div>
+          </div>
+        </div>
+      </details>
+
+
+
+
+            <div class="hint">
+              Exports include raw input, normalized URL, and generated filename for each entry.
+            </div>
+          </div>
+        </div>
+
+        <div class="actions actions-stack">
+          <!-- Row 1: Downloads -->
+          <div class="actions-row">
+            <button id="downloadZipBtn" type="button" class="btn primary">Download ZIP</button>
+            <button id="downloadCsvBtn" type="button" class="btn secondary small">Download CSV</button>
+            <button id="downloadJsonBtn" type="button" class="btn secondary small">Download JSON</button>
+            <button id="downloadBatchFileBtn" type="button" class="btn secondary small">Download Batch File</button>
+          </div>
+
+          <!-- Row 2: Copy / Open / Clear -->
+          <div class="actions-row">
+            <button id="copyBatchCsvBtn" type="button" class="btn secondary small">Copy CSV</button>
+            <button id="copyBatchJsonBtn" type="button" class="btn secondary small">Copy JSON</button>
+            <button id="copyBatchUrlsBtn" type="button" class="btn secondary small">Copy URL list</button>
+
+            <button id="openFirstBtn" type="button" class="btn secondary small">Open first valid</button>
+
+            <span class="actions-row-spacer"></span>
+
+            <button id="resetBtnBatch" type="button" class="btn danger secondary small">Clear</button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Secondary / bottom stack -->
+      <section class="bottom-stack">
+        <div id="status" class="status" aria-live="polite"></div>
+
+        <div id="invalidPanel" class="invalid-panel" hidden>
+          <div class="invalid-head">
+            <div class="invalid-title">
+              Invalid lines <span id="invalidCount" class="muted"></span>
+            </div>
+            <button id="toggleInvalidBtn" type="button" class="btn secondary small">
+              Show
+            </button>
+          </div>
+
+          <div id="invalidBody" class="invalid-body" hidden>
+            <div id="invalidList" class="invalid-list"></div>
+            <div class="hint">
+              Tip: Fix the lines above (or remove them) and the batch preview will update automatically.
+            </div>
+          </div>
+        </div>
+
+        <details id="historyDetails" class="history-details">
+          <summary class="history-summary">
+            <span class="history-summary-left">
+              <span class="history-summary-title">History</span>
+              <span id="historyCount" class="muted"></span>
+            </span>
+
+            <span class="history-summary-right">
+              <button id="clearHistoryBtn" type="button" class="btn secondary small danger">Clear</button>
+            </span>
+          </summary>
+
+          <div id="historyList"></div>
+        </details>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Local/offline vendor libs -->
+  <script src="./vendor/jszip.min.js"></script>
+  <script src="./vendor/qrcode.js"></script>
+
+  <!-- Lib files -->
+  <script src="./lib/ui.js"></script>
+  <script src="./lib/url.js"></script>
+  <script src="./lib/batch.js"></script>
+  <script src="./lib/batch-file.js"></script>
+  <script src="./lib/import-json.js"></script>
+  <script src="./lib/import-files.js"></script>
+  <script src="./lib/qr.js"></script>
+  <script src="./lib/export.js"></script>
+  <script src="./lib/export-schema.js"></script>
+  <script src="./lib/output-builders.js"></script>
+  <script src="./lib/download.js"></script>
+  <script src="./lib/zip.js"></script>
+  <script src="./lib/errors.js"></script>
+  <script src="./lib/actions.js"></script>
+  <script src="./lib/history.js"></script>
+  <script src="./lib/state.js"></script>
+  <script src="./lib/theme.js"></script>
+
+  <script src="./app.js"></script>
+</body>
+</html>
