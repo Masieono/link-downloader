@@ -31,7 +31,6 @@ const downloadCsvBtn = document.getElementById("downloadCsvBtn");
 const downloadJsonBtn = document.getElementById("downloadJsonBtn");
 const downloadBatchFileBtn = document.getElementById("downloadBatchFileBtn");
 
-
 /*
 const copyBatchSelect = document.getElementById("copyBatchSelect");
 const copyBatchBtn = document.getElementById("copyBatchBtn");
@@ -40,10 +39,6 @@ const copyBatchBtn = document.getElementById("copyBatchBtn");
 const copyBatchCsvBtn = document.getElementById("copyBatchCsvBtn");
 const copyBatchJsonBtn = document.getElementById("copyBatchJsonBtn");
 const copyBatchUrlsBtn = document.getElementById("copyBatchUrlsBtn");
-
-
-
-
 
 const openNowBtn = document.getElementById("openNowBtn");
 const openFirstBtn = document.getElementById("openFirstBtn");
