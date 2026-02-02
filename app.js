@@ -401,6 +401,11 @@ const actions = App.actions.init({
   resetBtnBatchEl: resetBtnBatch,
   copyBtnEl: copyBtn,
 
+  downloadZipBtnEl: downloadZipBtn,
+  downloadCsvBtnEl: downloadCsvBtn,
+  downloadJsonBtnEl: downloadJsonBtn,
+  downloadBatchFileBtnEl: downloadBatchFileBtn,
+
   copyBatchCsvBtnEl: copyBatchCsvBtn,
   copyBatchJsonBtnEl: copyBatchJsonBtn,
   copyBatchUrlsBtnEl: copyBatchUrlsBtn,
