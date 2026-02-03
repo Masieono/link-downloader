@@ -542,6 +542,7 @@ App.ui.updateTypeSelectionUI();
 App.ui.updateDedupeModeUI?.();
 updatePreview();
 actions.updateQrSummaryText?.();
+actions.refreshSingleActionsEnabled?.();
 actions.refreshBatchCopyEnabled?.();
 refreshDedupeStrengthVisibility();
 actions.restoreQrPanelState?.();
@@ -669,10 +670,10 @@ on(fileNameInput, "input", updatePreview);
 
 on(urlInput, "input", () => {
   updatePreview();
+  actions.refreshSingleActionsEnabled?.();
   actions.updateQrSummaryText?.();
   actions.scheduleQrRefresh?.("urlInput");
 });
-
 
 // Batch input changes
 on(batchInput, "input", () => {
