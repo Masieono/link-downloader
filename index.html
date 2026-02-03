@@ -141,72 +141,91 @@
           <button id="factoryResetBtn" type="button" class="btn danger secondary">Factory reset</button>
         </div>
 
-        <button id="showQrBtn" type="button" class="btn secondary">Show QR</button>
+        <!-- QR (single mode) -->
+        <details id="qrDetails" class="details-card mt-12">
+          <summary class="details-summary" id="qrSummary">
+            <span class="details-summary-left">
+              <span class="details-summary-title">QR code</span>
+              <!--<span class="muted details-summary-sub" id="qrSummaryText">Enter a valid URL</span>-->
+            </span>
+          </summary>
 
-        <div id="qrPanel" class="qr-panel" hidden>
-          <div class="qr-row">
-            <div class="muted" style="font-size:13px;">QR for effective URL</div>
-          </div>
-
-          <label class="option">
-            Foreground
-            <input id="qrFg" type="color" value="#000000" />
-          </label>
-
-          <label class="option">
-            Background
-            <input id="qrBg" type="color" value="#ffffff" />
-          </label>
-
-          <label class="option">
-            <input id="qrTransparent" type="checkbox" />
-            Transparent background
-          </label>
-
-          <div id="qrWarn" class="hint" style="display:none;">
-            ⚠️ Low contrast — QR may be hard to scan.
-          </div>
-
-          <label class="option">
-            Border (quiet zone)
-            <input id="qrMargin" type="number" min="0" max="32" step="1" value="4" />
-          </label>
-
-          <label class="option">
-            Download size
-            <select id="qrSize" class="select">
-              <option value="small">Small</option>
-              <option value="medium" selected>Medium</option>
-              <option value="large">Large</option>
-            </select>
-          </label>
-
-          <label class="option">
-            ECC (error correction)
-            <select id="qrEcc" class="select">
-              <option value="L">L (smallest)</option>
-              <option value="M" selected>M (default)</option>
-              <option value="Q">Q (more resilient)</option>
-              <option value="H">H (most resilient)</option>
-            </select>
-          </label>
-
-          <div class="qr-grid">
-            <div class="qr-box">
-              <div class="qr-title">Preview (PNG)</div>
-              <img id="qrImg" alt="QR code preview" />
+          <div class="details-body">
+            <!-- Header hint (optional) -->
+            <div class="hint" style="margin-top:0;">
+              QR uses the same URL mode as your downloads.
             </div>
 
-            <div class="qr-actions">
-              <button id="qrCopyUrlBtn" type="button" class="btn secondary">Copy URL</button>
-              <button id="qrCopySvgBtn" type="button" class="btn secondary">Copy SVG</button>
-              <button id="qrDlPngBtn" type="button" class="btn primary">Download PNG</button>
-              <button id="qrDlSvgBtn" type="button" class="btn primary">Download SVG</button>
+            <div id="qrPanel" class="qr-panel-compact" hidden>
+              <!-- Top row: preview left, actions right -->
+              <div class="qr-top">
+                <div class="qr-box">
+                  <div class="qr-title">Preview</div>
+                  <img id="qrImg" alt="QR code preview" />
+                </div>
+              </div>
+
+              <!-- Warning -->
+              <div id="qrWarn" class="hint qr-warn" style="display:none;">
+                ⚠️ Low contrast — QR may be hard to scan.
+              </div>
+
+              <!-- Controls: compact rows -->
+              <div class="qr-controls">
+                <div class="qr-controls-row">
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Foreground</span>
+                    <input id="qrFg" type="color" value="#000000" />
+                  </label>
+
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Background</span>
+                    <input id="qrBg" type="color" value="#ffffff" />
+                  </label>
+
+                  <label class="qr-inline qr-inline-check">
+                    <input id="qrTransparent" type="checkbox" />
+                    <span class="qr-inline-label">Transparent</span>
+                  </label>
+                </div>
+
+                <div class="qr-controls-row">
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Border</span>
+                    <input id="qrMargin" type="number" min="0" max="32" step="1" value="4" class="qr-num" />
+                  </label>
+
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Size</span>
+                    <select id="qrSize" class="select qr-select">
+                      <option value="small">Small</option>
+                      <option value="medium" selected>Medium</option>
+                      <option value="large">Large</option>
+                    </select>
+                  </label>
+
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">ECC</span>
+                    <select id="qrEcc" class="select qr-select">
+                      <option value="L">L</option>
+                      <option value="M" selected>M</option>
+                      <option value="Q">Q</option>
+                      <option value="H">H</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            
+              <div class="qr-actions-grid">
+                <button id="qrCopyUrlBtn" type="button" class="btn secondary small">Copy URL</button>
+                <button id="qrCopySvgBtn" type="button" class="btn secondary small">Copy SVG</button>
+                <button id="qrDlPngBtn" type="button" class="btn primary small">Download PNG</button>
+                <button id="qrDlSvgBtn" type="button" class="btn primary small">Download SVG</button>
+              </div>
             </div>
           </div>
+        </details>
 
-          <div class="hint">Tip: QR uses the same URL mode as your downloads.</div>
-        </div>
       </section>
 
       <!-- Batch mode -->
@@ -304,6 +323,59 @@
               <input id="optQrSvg" type="checkbox" />
               Include QR SVGs in ZIP
             </label>
+
+            <!-- Batch QR options (shown only if QR PNG/SVG is enabled) -->
+            <div id="batchQrOptions" class="batch-qr-options" hidden>
+              <div class="hint" style="margin-top:0;">
+                These settings are shared with the single-mode QR section.
+              </div>
+
+              <div class="qr-controls" style="margin-top:10px;">
+                <div class="qr-controls-row">
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Foreground</span>
+                    <input id="qrFgBatch" type="color" value="#000000" />
+                  </label>
+
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Background</span>
+                    <input id="qrBgBatch" type="color" value="#ffffff" />
+                  </label>
+
+                  <label class="qr-inline qr-inline-check">
+                    <input id="qrTransparentBatch" type="checkbox" />
+                    <span class="qr-inline-label">Transparent</span>
+                  </label>
+                </div>
+
+                <div class="qr-controls-row">
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Border</span>
+                    <input id="qrMarginBatch" type="number" min="0" max="32" step="1" value="4" class="qr-num" />
+                  </label>
+
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">Size</span>
+                    <select id="qrSizeBatch" class="select qr-select">
+                      <option value="small">Small</option>
+                      <option value="medium" selected>Medium</option>
+                      <option value="large">Large</option>
+                    </select>
+                  </label>
+
+                  <label class="qr-inline">
+                    <span class="qr-inline-label">ECC</span>
+                    <select id="qrEccBatch" class="select qr-select">
+                      <option value="L">L</option>
+                      <option value="M" selected>M</option>
+                      <option value="Q">Q</option>
+                      <option value="H">H</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </details>
@@ -313,7 +385,7 @@
         <summary class="details-summary">
           <span class="details-summary-left">
             <span class="details-summary-title">Export schema</span>
-            <span class="muted details-summary-sub" id="exportSchemaSummaryText">Defaults</span>
+            <!-- <span class="muted details-summary-sub" id="exportSchemaSummaryText">Defaults</span> -->
           </span>
         </summary>
 

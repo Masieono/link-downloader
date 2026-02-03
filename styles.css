@@ -684,6 +684,138 @@ textarea.dragover{
   align-content:start;
 }
 
+
+
+/* ------------------------------------------------------------------ */
+/* QR (single) compact layout */
+/* ------------------------------------------------------------------ */
+
+.qr-panel-compact {
+  margin-top: 10px;
+}
+
+
+.qr-top {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  justify-items: center; /* centers the preview box */
+}
+
+
+
+.qr-box {
+  padding: 10px;
+  border: 1px dashed rgba(127,127,127,0.35);
+  border-radius: 12px;
+  text-align: center;
+  background: rgba(127,127,127,0.03);
+}
+
+.qr-title {
+  font-weight: 750;
+  margin-bottom: 8px;
+}
+
+#qrImg {
+  width: auto;
+  height: auto;
+  max-width: 320px; /* maybe try 260px */
+  image-rendering: pixelated;
+}
+
+.qr-actions-grid {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.qr-actions-grid .btn.small {
+  min-width: 132px;
+}
+
+
+.qr-warn {
+  margin: 10px auto 4px;
+  text-align: center;
+  max-width: 320px; /* match your QR max width */
+}
+
+
+.qr-controls {
+  margin-top: 10px;
+  display: grid;
+  gap: 10px;
+}
+
+.qr-controls-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+@media (max-width: 640px) {
+  .qr-controls-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.qr-inline {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid rgba(127,127,127,0.25);
+  border-radius: 10px;
+  background: rgba(127,127,127,0.03);
+}
+
+.qr-inline-check {
+  grid-template-columns: auto 1fr;
+  justify-content: start;
+}
+
+.qr-inline-label {
+  font-weight: 650;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.qr-num {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(127,127,127,0.35);
+  background: transparent;
+  font-size: 14px;
+  outline: none;
+}
+
+.qr-select {
+  padding: 8px 10px;
+}
+
+.details-card.qr-disabled summary {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+.batch-qr-options {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(127,127,127,0.18);
+}
+
+
+
+
+
 /* ------------------------------------------------------------------ */
 /* History */
 /* ------------------------------------------------------------------ */

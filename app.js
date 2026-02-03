@@ -52,6 +52,15 @@ const optExportJson = document.getElementById("optExportJson");
 const optQrPng = document.getElementById("optQrPng");
 const optQrSvg = document.getElementById("optQrSvg");
 
+// Batch QR options (mirrors single QR settings)
+const batchQrOptionsEl = document.getElementById("batchQrOptions");
+const qrFgBatch = document.getElementById("qrFgBatch");
+const qrBgBatch = document.getElementById("qrBgBatch");
+const qrTransparentBatch = document.getElementById("qrTransparentBatch");
+const qrMarginBatch = document.getElementById("qrMarginBatch");
+const qrSizeBatch = document.getElementById("qrSizeBatch");
+const qrEccBatch = document.getElementById("qrEccBatch");
+
 const batchOptionsDetailsEl = document.getElementById("batchOptionsDetails");
 
 // Export Schema UI
@@ -74,7 +83,7 @@ const invalidList = document.getElementById("invalidList");
 const dedupeStrengthWrap = document.getElementById("dedupeStrengthWrap");
 
 // QR UI
-const showQrBtn = document.getElementById("showQrBtn");
+// const showQrBtn = document.getElementById("showQrBtn");
 const qrPanel = document.getElementById("qrPanel");
 
 const qrImg = document.getElementById("qrImg");
@@ -290,6 +299,64 @@ function setDragOver(el, on) {
   el.classList.toggle("dragover", !!on);
 }
 
+
+
+
+function refreshBatchQrOptionsVisibility() {
+  const show = !!(optQrPng?.checked || optQrSvg?.checked);
+  if (batchQrOptionsEl) batchQrOptionsEl.hidden = !show;
+}
+
+// Sync helpers: batch controls mirror single QR controls (shared source of truth)
+function syncValue(src, dst) {
+  if (!src || !dst) return;
+  dst.value = src.value;
+}
+function syncChecked(src, dst) {
+  if (!src || !dst) return;
+  dst.checked = !!src.checked;
+}
+
+function wireMirroredQrControls() {
+  // initial copy: single -> batch
+  syncValue(qrFg, qrFgBatch);
+  syncValue(qrBg, qrBgBatch);
+  syncChecked(qrTransparent, qrTransparentBatch);
+  syncValue(qrMargin, qrMarginBatch);
+  syncValue(qrSize, qrSizeBatch);
+  syncValue(qrEcc, qrEccBatch);
+
+  // prevent feedback loops
+  let syncing = false;
+  const guard = (fn) => () => {
+    if (syncing) return;
+    syncing = true;
+    try { fn(); } finally { syncing = false; }
+  };
+
+  // batch -> single (this is what makes ZIP use the same render opts)
+  qrFgBatch?.addEventListener("input", guard(() => { qrFg.value = qrFgBatch.value; actions.handleQrUiChanged?.("appearance"); }));
+  qrBgBatch?.addEventListener("input", guard(() => { qrBg.value = qrBgBatch.value; actions.handleQrUiChanged?.("appearance"); }));
+  qrTransparentBatch?.addEventListener("change", guard(() => { qrTransparent.checked = qrTransparentBatch.checked; actions.handleQrUiChanged?.("appearance"); }));
+  qrMarginBatch?.addEventListener("input", guard(() => { qrMargin.value = qrMarginBatch.value; actions.handleQrUiChanged?.("tuning"); }));
+  qrSizeBatch?.addEventListener("change", guard(() => { qrSize.value = qrSizeBatch.value; actions.handleQrUiChanged?.("tuning"); }));
+  qrEccBatch?.addEventListener("change", guard(() => { qrEcc.value = qrEccBatch.value; actions.handleQrUiChanged?.("tuning"); }));
+
+  // single -> batch (keep batch UI in sync if user edits in single QR panel)
+  qrFg?.addEventListener("input", guard(() => syncValue(qrFg, qrFgBatch)));
+  qrBg?.addEventListener("input", guard(() => syncValue(qrBg, qrBgBatch)));
+  qrTransparent?.addEventListener("change", guard(() => syncChecked(qrTransparent, qrTransparentBatch)));
+  qrMargin?.addEventListener("input", guard(() => syncValue(qrMargin, qrMarginBatch)));
+  qrSize?.addEventListener("change", guard(() => syncValue(qrSize, qrSizeBatch)));
+  qrEcc?.addEventListener("change", guard(() => syncValue(qrEcc, qrEccBatch)));
+}
+
+
+
+
+
+
+
 // -------------------------
 // INIT
 // -------------------------
@@ -406,7 +473,7 @@ const actions = App.actions.init({
   copyBatchUrlsBtnEl: copyBatchUrlsBtn,
 
   // QR
-  showQrBtnEl: showQrBtn,
+  // showQrBtnEl: showQrBtn,
   qrPanelEl: qrPanel,
   qrImgEl: qrImg,
   qrUrlLabelEl: qrUrlLabel,
@@ -474,9 +541,13 @@ App.ui.updateModeUI();
 App.ui.updateTypeSelectionUI();
 App.ui.updateDedupeModeUI?.();
 updatePreview();
+actions.updateQrSummaryText?.();
 actions.refreshBatchCopyEnabled?.();
 refreshDedupeStrengthVisibility();
 actions.restoreQrPanelState?.();
+refreshBatchQrOptionsVisibility();
+wireMirroredQrControls();
+
 
 // -------------------------
 // EVENTS
@@ -536,7 +607,7 @@ on(downloadZipBtn, "click", actions.handleDownloadZipBatch);
 on(resetBtn, "click", actions.resetAll);
 on(resetBtnBatch, "click", actions.resetAll);
 
-on(showQrBtn, "click", actions.handleShowQr);
+// on(showQrBtn, "click", actions.handleShowQr);
 
 on(qrCopyUrlBtn, "click", actions.handleQrCopyUrl);
 on(qrCopySvgBtn, "click", actions.handleQrCopySvg);
@@ -594,11 +665,14 @@ on(urlInput, "keydown", (e) => {
 });
 
 // Single input changes
+on(fileNameInput, "input", updatePreview);
+
 on(urlInput, "input", () => {
   updatePreview();
+  actions.updateQrSummaryText?.();
   actions.scheduleQrRefresh?.("urlInput");
 });
-on(fileNameInput, "input", updatePreview);
+
 
 // Batch input changes
 on(batchInput, "input", () => {
@@ -624,6 +698,7 @@ wireDropTarget(batchInput);
   if (!el) return;
   el.addEventListener("change", () => {
     refreshDedupeStrengthVisibility();
+    refreshBatchQrOptionsVisibility();
     updatePreview();
     actions.refreshBatchCopyEnabled?.();
   });
