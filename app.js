@@ -601,7 +601,47 @@ function wireDropTarget(el) {
     e.stopPropagation();
     setDragOver(el, false);
 
-    const file = e.dataTransfer?.files?.[0];
+    const dt = e.dataTransfer;
+    if (!dt) return;
+
+    // ----------------------------------------------------
+    // 1) Try URL/text drop first (dragging a link)
+    // ----------------------------------------------------
+    const uri = dt.getData("text/uri-list")?.trim();
+    const text = dt.getData("text/plain")?.trim();
+
+    const maybeUrl = (uri || text || "").split("\n")[0].trim(); // uri-list can contain newlines
+
+    if (maybeUrl && !dt.files?.length) {
+      // Decide where to put it based on drop target
+      const droppedIntoSingle = el === urlInput || el.closest?.("#singlePanel");
+      const droppedIntoBatch = el === batchInput || el.closest?.("#batchPanel") || el === dropZone;
+
+      if (droppedIntoSingle && urlInput) {
+        urlInput.value = maybeUrl;
+        urlInput.dispatchEvent(new Event("input", { bubbles: true }));
+        return;
+      }
+
+      if (droppedIntoBatch && batchInput) {
+        // Append as a new line (don’t overwrite existing batch text)
+        batchInput.value = (batchInput.value.trimEnd() ? batchInput.value.trimEnd() + "\n" : "") + maybeUrl + "\n";
+        batchInput.dispatchEvent(new Event("input", { bubbles: true }));
+        return;
+      }
+
+      // Fallback: if we can't determine, prefer batch
+      if (batchInput) {
+        batchInput.value = (batchInput.value.trimEnd() ? batchInput.value.trimEnd() + "\n" : "") + maybeUrl + "\n";
+        batchInput.dispatchEvent(new Event("input", { bubbles: true }));
+        return;
+      }
+    }
+
+    // ----------------------------------------------------
+    // 2) File drop (existing behavior)
+    // ----------------------------------------------------
+    const file = dt.files?.[0];
     if (!file) return;
 
     try {
