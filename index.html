@@ -35,7 +35,7 @@
 
               <button id="factoryResetBtn" type="button" class="btn danger secondary small" role="menuitem">
                 Factory reset
-          </button>
+              </button>
 
               <div class="settings-divider"></div>
 
@@ -298,145 +298,145 @@
           Example: <code>fonts.google.com</code> → <code>fonts.google</code>
         </div>
 
-      <!-- Batch options (collapsible) -->
-      <details id="batchOptionsDetails" class="details-card mt-12">
-        <summary class="details-summary">
-          <span class="details-summary-left">
-            <span class="details-summary-title">Batch options</span>
-          </span>
-        </summary>
+        <!-- Batch options (collapsible) -->
+        <details id="batchOptionsDetails" class="details-card mt-12">
+          <summary class="details-summary">
+            <span class="details-summary-left">
+              <span class="details-summary-title">Batch options</span>
+            </span>
+          </summary>
 
-        <div class="details-body">
-          <div class="options" style="margin-top:0;">
-            <label class="option">
-              <input type="checkbox" id="optImportAppend" checked />
-              Append on import
-            </label>
+          <div class="details-body">
+            <div class="options" style="margin-top:0;">
+              <label class="option">
+                <input type="checkbox" id="optImportAppend" checked />
+                Append on import
+              </label>
 
-            <label class="option">
-              <input id="optDedupe" type="checkbox" />
-              Remove duplicates
-            </label>
+              <label class="option">
+                <input id="optDedupe" type="checkbox" />
+                Remove duplicates
+              </label>
 
-            <div id="dedupeStrengthWrap">
-              <label class="mt-12">Deduping strength</label>
-              <select id="dedupeMode" class="select">
-                <option value="exact" selected>Exact</option>
-                <option value="loose">Loose (ignore www + trailing slash)</option>
-                <option value="aggressive">Aggressive (canonical-ish)</option>
-              </select>
-              <div class="hint">
-                Loose is usually best. Aggressive may merge URLs you’d prefer to keep separate.
+              <div id="dedupeStrengthWrap">
+                <label class="mt-12">Deduping strength</label>
+                <select id="dedupeMode" class="select">
+                  <option value="exact" selected>Exact</option>
+                  <option value="loose">Loose (ignore www + trailing slash)</option>
+                  <option value="aggressive">Aggressive (canonical-ish)</option>
+                </select>
+                <div class="hint">
+                  Loose is usually best. Aggressive may merge URLs you’d prefer to keep separate.
+                </div>
               </div>
-            </div>
 
-            <div class="divider"></div>
+              <div class="divider"></div>
 
-            <div class="hint">
-              These control CSV/JSON exports and copy actions. (Batch File export stays standardized.)
-            </div>
+              <div class="hint">
+                These control CSV/JSON exports and copy actions. (Batch File export stays standardized.)
+              </div>
 
-            <label class="option">
-              <input id="optExportCsv" type="checkbox" checked />
-              Include CSV export in ZIP
-            </label>
+              <label class="option">
+                <input id="optExportCsv" type="checkbox" checked />
+                Include CSV export in ZIP
+              </label>
 
-            <label class="option">
-              <input id="optExportJson" type="checkbox" checked />
-              Include JSON export in ZIP
-            </label>
+              <label class="option">
+                <input id="optExportJson" type="checkbox" checked />
+                Include JSON export in ZIP
+              </label>
 
-            <label class="option">
-              <input id="optQrPng" type="checkbox" />
-              Include QR PNGs in ZIP
-            </label>
+              <label class="option">
+                <input id="optQrPng" type="checkbox" />
+                Include QR PNGs in ZIP
+              </label>
 
-            <label class="option">
-              <input id="optQrSvg" type="checkbox" />
-              Include QR SVGs in ZIP
-            </label>
+              <label class="option">
+                <input id="optQrSvg" type="checkbox" />
+                Include QR SVGs in ZIP
+              </label>
 
               <!-- Batch QR options -->
-            <div id="batchQrOptions" class="batch-qr-options" hidden>
-              <div class="hint" style="margin-top:0;">
-                These settings are shared with the single-mode QR section.
-              </div>
-
-              <div class="qr-controls" style="margin-top:10px;">
-                <div class="qr-controls-row">
-                  <label class="qr-inline">
-                    <span class="qr-inline-label">Foreground</span>
-                    <input id="qrFgBatch" type="color" value="#000000" />
-                  </label>
-
-                  <label class="qr-inline">
-                    <span class="qr-inline-label">Background</span>
-                    <input id="qrBgBatch" type="color" value="#ffffff" />
-                  </label>
-
-                  <label class="qr-inline qr-inline-check">
-                    <input id="qrTransparentBatch" type="checkbox" />
-                    <span class="qr-inline-label">Transparent</span>
-                  </label>
+              <div id="batchQrOptions" class="batch-qr-options" hidden>
+                <div class="hint" style="margin-top:0;">
+                  These settings are shared with the single-mode QR section.
                 </div>
 
-                <div class="qr-controls-row">
-                  <label class="qr-inline">
-                    <span class="qr-inline-label">Border</span>
-                    <input id="qrMarginBatch" type="number" min="0" max="32" step="1" value="4" class="qr-num" />
-                  </label>
+                <div class="qr-controls" style="margin-top:10px;">
+                  <div class="qr-controls-row">
+                    <label class="qr-inline">
+                      <span class="qr-inline-label">Foreground</span>
+                      <input id="qrFgBatch" type="color" value="#000000" />
+                    </label>
 
-                  <label class="qr-inline">
-                    <span class="qr-inline-label">Size</span>
-                    <select id="qrSizeBatch" class="select qr-select">
-                      <option value="small">Small</option>
-                      <option value="medium" selected>Medium</option>
-                      <option value="large">Large</option>
-                    </select>
-                  </label>
+                    <label class="qr-inline">
+                      <span class="qr-inline-label">Background</span>
+                      <input id="qrBgBatch" type="color" value="#ffffff" />
+                    </label>
 
-                  <label class="qr-inline">
-                    <span class="qr-inline-label">ECC</span>
-                    <select id="qrEccBatch" class="select qr-select">
-                      <option value="L">L</option>
-                      <option value="M" selected>M</option>
-                      <option value="Q">Q</option>
-                      <option value="H">H</option>
-                    </select>
-                  </label>
+                    <label class="qr-inline qr-inline-check">
+                      <input id="qrTransparentBatch" type="checkbox" />
+                      <span class="qr-inline-label">Transparent</span>
+                    </label>
+                  </div>
+
+                  <div class="qr-controls-row">
+                    <label class="qr-inline">
+                      <span class="qr-inline-label">Border</span>
+                      <input id="qrMarginBatch" type="number" min="0" max="32" step="1" value="4" class="qr-num" />
+                    </label>
+
+                    <label class="qr-inline">
+                      <span class="qr-inline-label">Size</span>
+                      <select id="qrSizeBatch" class="select qr-select">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                      </select>
+                    </label>
+
+                    <label class="qr-inline">
+                      <span class="qr-inline-label">ECC</span>
+                      <select id="qrEccBatch" class="select qr-select">
+                        <option value="L">L</option>
+                        <option value="M" selected>M</option>
+                        <option value="Q">Q</option>
+                        <option value="H">H</option>
+                      </select>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </details>
+        </details>
 
         <!-- Export schema -->
-      <details id="exportSchemaDetails" class="details-card mt-12">
-        <summary class="details-summary">
-          <span class="details-summary-left">
-            <span class="details-summary-title">Export schema</span>
-          </span>
-        </summary>
+        <details id="exportSchemaDetails" class="details-card mt-12">
+          <summary class="details-summary">
+            <span class="details-summary-left">
+              <span class="details-summary-title">Export schema</span>
+            </span>
+          </summary>
 
-        <div class="details-body">
-          <div class="hint" style="margin-top:0;">
-            Pick fields to include, then drag to reorder. Applies to CSV + JSON exports (and ZIP exports).
-          </div>
-
-          <div class="schema-wrap">
-            <div class="schema-col">
-              <div class="schema-title">Selected (drag to reorder)</div>
-              <ul id="exportFieldsSelected" class="schema-selected" aria-label="Selected export fields"></ul>
+          <div class="details-body">
+            <div class="hint" style="margin-top:0;">
+              Pick fields to include, then drag to reorder. Applies to CSV + JSON exports (and ZIP exports).
             </div>
 
-            <div class="schema-col">
-              <div class="schema-title">Available fields</div>
-              <div id="exportFieldsAvailable" class="schema-available"></div>
+            <div class="schema-wrap">
+              <div class="schema-col">
+                <div class="schema-title">Selected (drag to reorder)</div>
+                <ul id="exportFieldsSelected" class="schema-selected" aria-label="Selected export fields"></ul>
+              </div>
+
+              <div class="schema-col">
+                <div class="schema-title">Available fields</div>
+                <div id="exportFieldsAvailable" class="schema-available"></div>
+              </div>
             </div>
           </div>
-        </div>
-      </details>
+        </details>
 
         <div class="actions actions-stack">
           <div class="actions-row">
