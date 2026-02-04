@@ -117,14 +117,18 @@
           spellcheck="false"
         />
 
-        <label for="fileName">Filename (optional)</label>
-        <input
-          id="fileName"
-          type="text"
-          placeholder="Leave blank to auto-name"
-          autocomplete="off"
-          spellcheck="false"
-        />
+        <div class="field-inline">
+          <label for="fileName" class="field-label">Filename (optional)</label>
+          <input
+            id="fileName"
+            class="field-input"
+            type="text"
+            placeholder="Leave blank to auto-name"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+
         <div class="hint">
           If blank, we’ll derive a safe name from the hostname (minus the TLD).
           Example: <code>fonts.google.com</code> → <code>fonts.google</code>
@@ -262,16 +266,22 @@
           </div>
         </div>
 
-        <div class="grid-2">
-          <div>
-            <label for="zipName">Filename (optional)</label>
-            <input
-              id="zipName"
-              type="text"
-              placeholder="Leave blank for links.zip"
-              autocomplete="off"
-              spellcheck="false"
-            />
+        <div class="field-inline">
+          <label for="zipName" class="field-label">ZIP name (optional)</label>
+          <input
+            id="zipName"
+            class="field-input"
+            type="text"
+            placeholder="Leave blank for links.zip"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+
+        <div class="hint">
+          If blank, we’ll derive a safe name from the hostname (minus the TLD).
+          Example: <code>fonts.google.com</code> → <code>fonts.google</code>
+        </div>
 
       <!-- Batch options (collapsible) -->
       <details id="batchOptionsDetails" class="details-card mt-12">

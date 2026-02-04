@@ -1161,3 +1161,29 @@ textarea.dragover{
 
 /* Utilities */
 .mt-12{ margin-top: 12px; }
+
+/* Inline label + input row (for compact filename/zip name) */
+.field-inline {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px; /* matches your label spacing */
+}
+
+.field-inline .field-label {
+  font-weight: 700;
+  margin: 0;         /* override label default margins */
+}
+
+.field-inline .field-input {
+  margin: 0;         /* keep things tight */
+}
+
+/* Mobile: stack label above input */
+@media (max-width: 640px) {
+  .field-inline {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
