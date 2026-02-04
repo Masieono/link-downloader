@@ -38,13 +38,11 @@
           <label class="choice-pill">
             <input type="radio" name="mode" value="single" checked />
             <span class="choice-pill-title">Single</span>
-            <!-- <span class="choice-pill-sub">One link</span> -->
           </label>
 
           <label class="choice-pill">
             <input type="radio" name="mode" value="batch" />
             <span class="choice-pill-title">Batch</span>
-            <!-- <span class="choice-pill-sub">ZIP</span> -->
           </label>
         </div>
       </div>
@@ -157,7 +155,6 @@
           <summary class="details-summary" id="qrSummary">
             <span class="details-summary-left">
               <span class="details-summary-title">QR code</span>
-              <!--<span class="muted details-summary-sub" id="qrSummaryText">Enter a valid URL</span>-->
             </span>
           </summary>
 
@@ -341,7 +338,7 @@
               Include QR SVGs in ZIP
             </label>
 
-            <!-- Batch QR options (shown only if QR PNG/SVG is enabled) -->
+              <!-- Batch QR options -->
             <div id="batchQrOptions" class="batch-qr-options" hidden>
               <div class="hint" style="margin-top:0;">
                 These settings are shared with the single-mode QR section.
@@ -392,17 +389,15 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </details>
 
-      <!-- Export schema (separate collapsible) -->
+        <!-- Export schema -->
       <details id="exportSchemaDetails" class="details-card mt-12">
         <summary class="details-summary">
           <span class="details-summary-left">
             <span class="details-summary-title">Export schema</span>
-            <!-- <span class="muted details-summary-sub" id="exportSchemaSummaryText">Defaults</span> -->
           </span>
         </summary>
 
@@ -425,11 +420,7 @@
         </div>
       </details>
 
-          </div>
-        </div>
-
         <div class="actions actions-stack">
-          <!-- Row 1: Downloads -->
           <div class="actions-row">
             <button id="downloadZipBtn" type="button" class="btn primary">Download ZIP</button>
             <button id="downloadCsvBtn" type="button" class="btn secondary small">Download CSV</button>
@@ -439,21 +430,19 @@
             <span class="actions-row-spacer"></span>
 
             <button id="resetBtnBatch" type="button" class="btn danger secondary small">Clear</button>
-
           </div>
 
-          <!-- Row 2: Copy / Open / Clear -->
           <div class="actions-row">
             <button id="copyBatchCsvBtn" type="button" class="btn secondary small">Copy CSV</button>
             <button id="copyBatchJsonBtn" type="button" class="btn secondary small">Copy JSON</button>
             <button id="copyBatchUrlsBtn" type="button" class="btn secondary small">Copy URL list</button>
 
             <button id="openFirstBtn" type="button" class="btn secondary small">Open first valid</button>
-
           </div>
         </div>
-
       </section>
+        
+
 
       <!-- Secondary / bottom stack -->
       <section class="bottom-stack">

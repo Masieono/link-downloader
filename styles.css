@@ -101,6 +101,7 @@ body {
 .section-hint{
   font-size: 12px;
   opacity: 0.75;
+
 }
 
 .section-subtitle{
@@ -1106,16 +1107,6 @@ textarea.dragover{
     overflow: visible;
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
