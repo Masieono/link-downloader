@@ -5,6 +5,15 @@
 // Theme
 const themeToggleBtn = document.getElementById("themeToggleBtn");
 
+// Settings
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsMenu = document.getElementById("settingsMenu");
+const appVersionEl = document.getElementById("appVersion");
+
+// App version (simple, explicit)
+const APP_VERSION = "1.0.0";
+if (appVersionEl) appVersionEl.textContent = APP_VERSION;
+
 // Single mode
 const urlInput = document.getElementById("urlInput");
 const fileNameInput = document.getElementById("fileName");
@@ -605,6 +614,80 @@ function wireDropTarget(el) {
   });
 }
 
+
+// -------------------------
+// Settings popover behavior
+// -------------------------
+(function wireSettingsPopover() {
+  if (!settingsBtn || !settingsMenu) return;
+
+  // Ensure initial state is closed
+  settingsMenu.classList.remove("is-open");
+  settingsMenu.hidden = true;
+  settingsBtn.setAttribute("aria-expanded", "false");
+
+  function isOpen() {
+    return settingsMenu.classList.contains("is-open");
+  }
+
+  function closeMenu() {
+    settingsMenu.classList.remove("is-open");
+    settingsMenu.hidden = true;
+    settingsBtn.setAttribute("aria-expanded", "false");
+  }
+
+  function openMenu() {
+    settingsMenu.hidden = false;
+    settingsMenu.classList.add("is-open");
+    settingsBtn.setAttribute("aria-expanded", "true");
+  }
+
+  function toggleMenu() {
+    if (isOpen()) closeMenu();
+    else openMenu();
+  }
+
+  // Toggle on button click
+  settingsBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleMenu();
+
+    // Debug (remove later if you want)
+    console.log("[settings] toggled:", isOpen());
+  });
+
+  // Close on outside pointer (use capture so we win ordering vs other handlers)
+  document.addEventListener(
+    "pointerdown",
+    (e) => {
+      if (!isOpen()) return;
+      if (settingsMenu.contains(e.target)) return;
+      if (settingsBtn.contains(e.target)) return;
+      closeMenu();
+    },
+    true
+  );
+
+  // Close on Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeMenu();
+  });
+
+  settingsMenu.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    if (btn.id === "factoryResetBtn") closeMenu();
+  });
+
+  // Safety: if something hides it via HTML hidden attr, keep class in sync
+  const obs = new MutationObserver(() => {
+    if (settingsMenu.hidden) settingsMenu.classList.remove("is-open");
+  });
+  obs.observe(settingsMenu, { attributes: true, attributeFilter: ["hidden"] });
+})();
+
+
 // Buttons
 on(downloadBtn, "click", actions.handleDownloadSingle);
 on(copyBtn, "click", actions.handleCopy);
@@ -699,6 +782,7 @@ on(toggleInvalidBtn, "click", () => {
 // Drop targets
 wireDropTarget(dropZone);
 wireDropTarget(batchInput);
+wireDropTarget(urlInput);
 
 // Options that affect preview/copy state
 [optDedupe, optExportCsv, optExportJson, optQrPng, optQrSvg].forEach((el) => {

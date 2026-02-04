@@ -16,17 +16,35 @@
 
       <!-- Header -->
       <header class="topbar">
-        <div class="topbar-left">
-          <h1 class="app-title">Link File Generator</h1>
-          <p class="app-subtitle">
-            Create redirect link files from one URL or a batch. Everything runs locally in your browser.
-          </p>
-        </div>
+        <div class="title-row">
+          <h1>Link File Generator</h1>
 
-        <div class="topbar-right">
-          <button id="themeToggleBtn" type="button" class="btn secondary small">
-            Theme
+            <div class="settings">
+
+            <button id="settingsBtn" type="button" class="icon-btn" aria-label="Settings" aria-haspopup="menu" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2"/>
+              </svg>
+
+            </button>
+
+            <div id="settingsMenu" class="settings-menu" role="menu" hidden>
+              <button id="themeToggleBtn" type="button" class="btn secondary small" role="menuitem">
+                Toggle theme
+              </button>
+
+              <button id="factoryResetBtn" type="button" class="btn danger secondary small" role="menuitem">
+                Factory reset
           </button>
+
+              <div class="settings-divider"></div>
+
+              <div class="settings-meta">
+                Version <span id="appVersion">—</span>
+                <span><br>Vibe coded entirely with ChatGPT 5.2</span>
+              </div>
+            </div>
+          </div>
         </div>
       </header>
 
