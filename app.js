@@ -463,6 +463,12 @@ const actions = App.actions.init({
   resetBtnBatchEl: resetBtnBatch,
   copyBtnEl: copyBtn,
 
+  // Single-mode buttons
+  downloadBtnEl: downloadBtn,
+  openNowBtnEl: openNowBtn,
+  resetBtnEl: resetBtn,
+  copyBtnEl: copyBtn,
+
   downloadZipBtnEl: downloadZipBtn,
   downloadCsvBtnEl: downloadCsvBtn,
   downloadJsonBtnEl: downloadJsonBtn,
