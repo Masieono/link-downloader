@@ -1209,6 +1209,22 @@ textarea.dragover{
   align-items: center;
 }
 
+.icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 6px;
+  color: currentColor;
+}
+
+.icon-btn .icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 0;
+  vertical-align: 0;
+}
+
 .icon-btn{
   width: 38px;
   height: 38px;
