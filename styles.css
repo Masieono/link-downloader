@@ -925,6 +925,11 @@ textarea.dragover{
   justify-content: flex-end;
 }
 
+.history-empty {
+  /* text-align: center; */
+  padding: 14px 10px;
+}
+
 
 
 
