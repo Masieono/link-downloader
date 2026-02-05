@@ -470,16 +470,15 @@ const actions = App.actions.init({
   optQrPngEl: optQrPng,
   optQrSvgEl: optQrSvg,
 
-  // Buttons / selects
-  openFirstBtnEl: openFirstBtn,
-  resetBtnEl: clearTextArea,
-  resetBtnBatchEl: clearBatchTextArea,
-  copyBtnEl: copyBtn,
-
   // Single-mode buttons
   downloadBtnEl: downloadBtn,
-  openNowBtnEl: openNowBtn,
   copyBtnEl: copyBtn,
+  openNowBtnEl: openNowBtn,
+  resetBtnEl: resetBtn,
+
+  // Batch buttons
+  openFirstBtnEl: openFirstBtn,
+  resetBtnBatchEl: resetBtnBatch,
 
   downloadZipBtnEl: downloadZipBtn,
   downloadCsvBtnEl: downloadCsvBtn,
@@ -490,14 +489,15 @@ const actions = App.actions.init({
   copyBatchJsonBtnEl: copyBatchJsonBtn,
   copyBatchUrlsBtnEl: copyBatchUrlsBtn,
 
+  // QR details
+
   qrDetailsEl,
   qrSummaryEl,
   qrSummaryTextEl,
 
   historyDetailsEl,
 
-  // QR
-  // showQrBtnEl: showQrBtn,
+  // QR panel + output
   qrPanelEl: qrPanel,
   qrImgEl: qrImg,
   qrUrlLabelEl: qrUrlLabel,
@@ -510,12 +510,13 @@ const actions = App.actions.init({
   qrSizeEl: qrSize,
   qrEccEl: qrEcc,
 
+  // QR action buttons
   qrCopyUrlBtnEl: qrCopyUrlBtn,
   qrCopySvgBtnEl: qrCopySvgBtn,
   qrDlPngBtnEl: qrDlPngBtn,
   qrDlSvgBtnEl: qrDlSvgBtn,
 
-  factoryResetBtnEl: factoryResetBtn,
+  // factoryResetBtnEl: factoryResetBtn,
 
   // Required deps
   getDerivedFilename,
@@ -569,7 +570,7 @@ actions.updateQrSummaryText?.();
 actions.refreshSingleActionsEnabled?.();
 actions.refreshBatchCopyEnabled?.();
 refreshDedupeStrengthVisibility();
-actions.restoreQrPanelState?.();
+// actions.restoreQrPanelState?.();
 refreshBatchQrOptionsVisibility();
 wireMirroredQrControls();
 
@@ -701,9 +702,6 @@ function wireDropTarget(el) {
     e.preventDefault();
     e.stopPropagation();
     toggleMenu();
-
-    // Debug (remove later if you want)
-    console.log("[settings] toggled:", isOpen());
   });
 
   // Close on outside pointer (use capture so we win ordering vs other handlers)
@@ -800,7 +798,9 @@ on(dedupeModeEl, "change", () => {
 
 // Enter-to-download in single URL box
 on(urlInput, "keydown", (e) => {
-  if (e.key === "Enter") actions.handleDownloadSingle();
+  if (e.key !== "Enter") return;
+  e.preventDefault();
+  actions.handleDownloadSingle();
 });
 
 // Single input changes
