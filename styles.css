@@ -471,6 +471,19 @@ textarea:focus-visible,
   transition: border-color 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, transform 0.05s ease;
 }
 
+.choice-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.choice-pill-icon svg {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  flex-shrink: 0;
+}
+
 .choice-pill input {
   margin: 0;
 }

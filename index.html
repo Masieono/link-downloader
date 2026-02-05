@@ -72,23 +72,34 @@
         <label class="setting-label">File type</label>
 
         <div class="choice-row setting-choices" role="radiogroup" aria-label="File type">
+
           <label class="choice-pill">
             <input type="radio" name="fileType" value="html" checked />
+            <span class="choice-pill-icon">
+              <svg viewBox="0 0 24 24"><use href="#icon-html"></use></svg>
+            </span>
             <span class="choice-pill-title">Redirect</span>
             <span class="choice-pill-sub">HTML</span>
           </label>
 
           <label class="choice-pill">
             <input type="radio" name="fileType" value="url" />
+            <span class="choice-pill-icon">
+              <svg viewBox="0 0 24 24"><use href="#icon-windows"></use></svg>
+            </span>
             <span class="choice-pill-title">Windows</span>
             <span class="choice-pill-sub">.url</span>
           </label>
 
           <label class="choice-pill">
             <input type="radio" name="fileType" value="webloc" />
+            <span class="choice-pill-icon">
+              <svg viewBox="0 0 24 24"><use href="#icon-apple"></use></svg>
+            </span>
             <span class="choice-pill-title">macOS</span>
             <span class="choice-pill-sub">.webloc</span>
           </label>
+
         </div>
       </div>
 
@@ -587,6 +598,25 @@
       <path fill="currentColor" d="M17.31 4.251a.75.75 0 0 0-.083 1.498a5.326 5.326 0 0 1 3.465 9.08L17.83 17.69a5.317 5.317 0 0 1-7.523 0a5.326 5.326 0 0 1 0-7.528l1.43-1.432a.75.75 0 0 0-1.06-1.06l-1.43 1.431a6.826 6.826 0 0 0 0 9.65a6.817 6.817 0 0 0 9.644 0l2.86-2.864A6.826 6.826 0 0 0 17.31 4.251"/>
     </symbol>
 
+    <!-- HTML / Redirect -->
+    <symbol viewBox="0 0 256 256" id="icon-html">
+      <path fill="currentColor" 
+        d="m87.5 151.52l64-64a12 12 0 0 1 17 17l-64 64a12 12 0 0 1-17-17m131-114a60.08 60.08 0 0 0-84.87 0l-30.12 30.09a12 12 0 0 0 17 17l30.07-30.06a36 36 0 0 1 50.93 50.92l-30.11 30.05a12 12 0 1 0 17 17l30.08-30.06a60.09 60.09 0 0 0-.03-84.91ZM135.52 171.4l-30.07 30.08a36 36 0 0 1-50.92-50.93l30.06-30.07a12 12 0 0 0-17-17l-30.04 30.1a60 60 0 0 0 84.88 84.87l30.06-30.07a12 12 0 0 0-17-17Z"/>
+    </symbol>
+
+    <!-- Windows -->
+    <symbol viewBox="0 0 32 32" id="icon-windows">
+      <path fill="currentColor" 
+        d="m0 4.599l13-1.796v12.599H0zm14.599-2L32 0v15.197H14.599zM0 16.803h13v12.599L0 27.599zm14.599 0H32V32l-17.197-2.401z"/>
+    </symbol>
+
+    <!-- Apple -->
+    <symbol viewBox="0 0 32 32" id="icon-apple">
+      <path fill="currentColor" 
+        d="M9.438 31.401a7 7 0 0 1-1.656-1.536a20 20 0 0 1-1.422-1.938a18.9 18.9 0 0 1-2.375-4.849c-.667-2-.99-3.917-.99-5.792c0-2.094.453-3.922 1.339-5.458a7.7 7.7 0 0 1 2.797-2.906a7.45 7.45 0 0 1 3.786-1.12q.705.002 1.51.198c.385.109.854.281 1.427.495c.729.281 1.13.453 1.266.495c.427.156.786.224 1.068.224c.214 0 .516-.068.859-.172c.193-.068.557-.188 1.078-.411c.516-.188.922-.349 1.245-.469c.495-.146.974-.281 1.401-.349a6.7 6.7 0 0 1 1.531-.063a9 9 0 0 1 2.589.557c1.359.547 2.458 1.401 3.276 2.615a6.4 6.4 0 0 0-.969.734a8.2 8.2 0 0 0-1.641 2.005a6.8 6.8 0 0 0-.859 3.359c.021 1.443.391 2.714 1.12 3.813a7.2 7.2 0 0 0 2.047 2.047c.417.281.776.474 1.12.604c-.161.5-.333.984-.536 1.464a19 19 0 0 1-1.667 3.083c-.578.839-1.031 1.464-1.375 1.88c-.536.635-1.052 1.12-1.573 1.458c-.573.38-1.25.583-1.938.583a4.4 4.4 0 0 1-1.38-.167c-.385-.13-.766-.271-1.141-.432a9 9 0 0 0-1.203-.453a6.3 6.3 0 0 0-3.099-.005c-.417.12-.818.26-1.214.432c-.557.234-.927.391-1.141.458c-.427.125-.87.203-1.318.229c-.693 0-1.339-.198-1.979-.599zm9.14-24.615c-.906.453-1.771.646-2.63.583c-.135-.865 0-1.75.359-2.719a7.3 7.3 0 0 1 1.333-2.24A7.1 7.1 0 0 1 19.812.733q1.319-.68 2.521-.734c.104.906 0 1.797-.333 2.76a8 8 0 0 1-1.333 2.344a6.8 6.8 0 0 1-2.115 1.682z">
+      </path>
+    </symbol>
+
     <!-- Settings / overflow -->
     <symbol id="i-settings" viewBox="0 0 24 24">
       <path fill="currentColor" d="M12 16a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0-6a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2"></path>
@@ -615,9 +645,6 @@
       <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-width="2"
         d="M3 13L13 3m0 10L3 3"/>
     </symbol>
-
-
-
 
   </svg>
 
