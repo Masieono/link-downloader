@@ -40,11 +40,6 @@ const downloadCsvBtn = document.getElementById("downloadCsvBtn");
 const downloadJsonBtn = document.getElementById("downloadJsonBtn");
 const downloadBatchFileBtn = document.getElementById("downloadBatchFileBtn");
 
-/*
-const copyBatchSelect = document.getElementById("copyBatchSelect");
-const copyBatchBtn = document.getElementById("copyBatchBtn");
-*/
-
 const copyBatchCsvBtn = document.getElementById("copyBatchCsvBtn");
 const copyBatchJsonBtn = document.getElementById("copyBatchJsonBtn");
 const copyBatchUrlsBtn = document.getElementById("copyBatchUrlsBtn");
@@ -110,6 +105,15 @@ const qrTransparent = document.getElementById("qrTransparent");
 const qrMargin = document.getElementById("qrMargin");
 const qrSize = document.getElementById("qrSize");
 const qrEcc = document.getElementById("qrEcc");
+
+const qrDetailsEl = document.getElementById("qrDetails");
+const qrSummaryEl = document.getElementById("qrSummary");
+// only if you re-enable it in HTML
+const qrSummaryTextEl = document.getElementById("qrSummaryText");
+
+
+
+const historyDetailsEl = document.getElementById("historyDetails");
 
 // -------------------------
 // Glue functions + helpers
@@ -468,14 +472,13 @@ const actions = App.actions.init({
 
   // Buttons / selects
   openFirstBtnEl: openFirstBtn,
-  resetBtnEl: resetBtn,
-  resetBtnBatchEl: resetBtnBatch,
+  resetBtnEl: clearTextArea,
+  resetBtnBatchEl: clearBatchTextArea,
   copyBtnEl: copyBtn,
 
   // Single-mode buttons
   downloadBtnEl: downloadBtn,
   openNowBtnEl: openNowBtn,
-  resetBtnEl: resetBtn,
   copyBtnEl: copyBtn,
 
   downloadZipBtnEl: downloadZipBtn,
@@ -486,6 +489,12 @@ const actions = App.actions.init({
   copyBatchCsvBtnEl: copyBatchCsvBtn,
   copyBatchJsonBtnEl: copyBatchJsonBtn,
   copyBatchUrlsBtnEl: copyBatchUrlsBtn,
+
+  qrDetailsEl,
+  qrSummaryEl,
+  qrSummaryTextEl,
+
+  historyDetailsEl,
 
   // QR
   // showQrBtnEl: showQrBtn,
@@ -734,8 +743,8 @@ on(copyBtn, "click", actions.handleCopy);
 
 on(downloadZipBtn, "click", actions.handleDownloadZipBatch);
 
-on(resetBtn, "click", actions.resetAll);
-on(resetBtnBatch, "click", actions.resetAll);
+on(resetBtn, "click", actions.clearTextArea);
+on(resetBtnBatch, "click", actions.clearBatchTextArea);
 
 // on(showQrBtn, "click", actions.handleShowQr);
 
