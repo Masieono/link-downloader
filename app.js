@@ -111,8 +111,6 @@ const qrSummaryEl = document.getElementById("qrSummary");
 // only if you re-enable it in HTML
 const qrSummaryTextEl = document.getElementById("qrSummaryText");
 
-
-
 const historyDetailsEl = document.getElementById("historyDetails");
 
 // -------------------------
@@ -312,9 +310,6 @@ function setDragOver(el, on) {
   el.classList.toggle("dragover", !!on);
 }
 
-
-
-
 function refreshBatchQrOptionsVisibility() {
   const show = !!(optQrPng?.checked || optQrSvg?.checked);
   if (batchQrOptionsEl) batchQrOptionsEl.hidden = !show;
@@ -325,6 +320,7 @@ function syncValue(src, dst) {
   if (!src || !dst) return;
   dst.value = src.value;
 }
+
 function syncChecked(src, dst) {
   if (!src || !dst) return;
   dst.checked = !!src.checked;
@@ -363,12 +359,6 @@ function wireMirroredQrControls() {
   qrSize?.addEventListener("change", guard(() => syncValue(qrSize, qrSizeBatch)));
   qrEcc?.addEventListener("change", guard(() => syncValue(qrEcc, qrEccBatch)));
 }
-
-
-
-
-
-
 
 // -------------------------
 // INIT
@@ -570,17 +560,15 @@ actions.updateQrSummaryText?.();
 actions.refreshSingleActionsEnabled?.();
 actions.refreshBatchCopyEnabled?.();
 refreshDedupeStrengthVisibility();
-// actions.restoreQrPanelState?.();
 refreshBatchQrOptionsVisibility();
 wireMirroredQrControls();
-
 
 // -------------------------
 // EVENTS
 // -------------------------
 
 (function () {
-  const el = document.getElementById("batchOptionsDetails");
+  const el = batchOptionsDetailsEl;
   if (!el) return;
 
   el.open = App.state?.loadBatchOptionsOpen?.() === true;
@@ -589,7 +577,6 @@ wireMirroredQrControls();
     App.state?.saveBatchOptionsOpen?.(!!el.open);
   });
 })();
-
 
 const on = (el, evt, fn) => el?.addEventListener(evt, fn);
 const onAll = (selector, evt, fn) =>
@@ -664,7 +651,6 @@ function wireDropTarget(el) {
   });
 }
 
-
 // -------------------------
 // Settings popover behavior
 // -------------------------
@@ -734,7 +720,6 @@ function wireDropTarget(el) {
   obs.observe(settingsMenu, { attributes: true, attributeFilter: ["hidden"] });
 })();
 
-
 // Buttons
 on(downloadBtn, "click", actions.handleDownloadSingle);
 on(copyBtn, "click", actions.handleCopy);
@@ -743,8 +728,6 @@ on(downloadZipBtn, "click", actions.handleDownloadZipBatch);
 
 on(resetBtn, "click", actions.clearTextArea);
 on(resetBtnBatch, "click", actions.clearBatchTextArea);
-
-// on(showQrBtn, "click", actions.handleShowQr);
 
 on(qrCopyUrlBtn, "click", actions.handleQrCopyUrl);
 on(qrCopySvgBtn, "click", actions.handleQrCopySvg);
