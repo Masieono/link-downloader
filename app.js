@@ -176,13 +176,13 @@ function getDerivedFilename(urlStr, type) {
 function updatePreview() {
   // Defensive: support either App.ui helpers or direct DOM access
   const mode =
-    (App?.ui?.getMode && App.ui.getMode()) ||
-    document.querySelector('input[name="mode"]:checked')?.value ||
+    App.ui?.getMode?.() ??
+    document.querySelector('input[name="mode"]:checked')?.value ??
     "single";
 
   const type =
-    (App?.ui?.getSelectedType && App.ui.getSelectedType()) ||
-    document.querySelector('input[name="fileType"]:checked')?.value ||
+    App.ui?.getSelectedType?.() ??
+    document.querySelector('input[name="fileType"]:checked')?.value ??
     "html";
 
   const setStatus = (msg) => {
@@ -242,6 +242,15 @@ function updatePreview() {
       `ZIP name: ${App.url.ensureExtension(plan.zipBaseName, "zip")}\n` +
       `Exports in ZIP: ${exportBits.length ? exportBits.join(" + ") : "none"}`
   );
+}
+
+function refreshAll({ qrReason = null } = {}) {
+  updatePreview();
+  actions.refreshSingleActionsEnabled?.();
+  actions.refreshBatchCopyEnabled?.();
+  actions.updateQrSummaryText?.();
+
+  if (qrReason) actions.scheduleQrRefresh?.(qrReason);
 }
 
 function appendLinesToBatch(lines, { replace = true } = {}) {
@@ -555,10 +564,7 @@ App.history.init({
 App.ui.updateModeUI();
 App.ui.updateTypeSelectionUI();
 App.ui.updateDedupeModeUI?.();
-updatePreview();
-actions.updateQrSummaryText?.();
-actions.refreshSingleActionsEnabled?.();
-actions.refreshBatchCopyEnabled?.();
+refreshAll();
 refreshDedupeStrengthVisibility();
 refreshBatchQrOptionsVisibility();
 wireMirroredQrControls();
@@ -752,31 +758,21 @@ on(importAnyFileInput, "change", () => actions.handleImportAnyFileSelected(impor
 
 // urlMode radios: preview + batch refresh + QR refresh
 onAll('input[name="urlMode"]', "change", () => {
-  updatePreview();
-  actions.refreshBatchCopyEnabled?.();
-  actions.scheduleQrRefresh?.("urlMode");
+  refreshAll({ qrReason: "urlMode" });
 });
 
-// QR appearance / tuning → one unified handler
+// QR appearance / tuning
 on(qrFg, "input", () => actions.handleQrUiChanged?.("appearance"));
-on(qrFg, "change", () => actions.handleQrUiChanged?.("appearance"));
-
 on(qrBg, "input", () => actions.handleQrUiChanged?.("appearance"));
-on(qrBg, "change", () => actions.handleQrUiChanged?.("appearance"));
 
-on(qrTransparent, "input", () => actions.handleQrUiChanged?.("appearance"));
 on(qrTransparent, "change", () => actions.handleQrUiChanged?.("appearance"));
 
 on(qrMargin, "input", () => actions.handleQrUiChanged?.("tuning"));
-on(qrMargin, "change", () => actions.handleQrUiChanged?.("tuning"));
-
 on(qrSize, "change", () => actions.handleQrUiChanged?.("tuning"));
 on(qrEcc, "change", () => actions.handleQrUiChanged?.("tuning"));
 
-// Dedupe mode dropdown
 on(dedupeModeEl, "change", () => {
-  updatePreview();
-  actions.refreshBatchCopyEnabled?.();
+  refreshAll();
 });
 
 // Enter-to-download in single URL box
@@ -790,17 +786,13 @@ on(urlInput, "keydown", (e) => {
 on(fileNameInput, "input", updatePreview);
 
 on(urlInput, "input", () => {
-  updatePreview();
-  actions.refreshSingleActionsEnabled?.();
-  actions.updateQrSummaryText?.();
-  actions.scheduleQrRefresh?.("urlInput");
+  refreshAll({ qrReason: "urlInput" });
 });
 
-// Batch input changes
 on(batchInput, "input", () => {
-  updatePreview();
-  actions.refreshBatchCopyEnabled?.();
+  refreshAll();
 });
+
 on(zipNameInput, "input", updatePreview);
 
 // Invalid panel toggle
@@ -822,8 +814,7 @@ wireDropTarget(urlInput);
   el.addEventListener("change", () => {
     refreshDedupeStrengthVisibility();
     refreshBatchQrOptionsVisibility();
-    updatePreview();
-    actions.refreshBatchCopyEnabled?.();
+    refreshAll();
   });
 });
 
