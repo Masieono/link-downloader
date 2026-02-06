@@ -930,9 +930,20 @@ textarea.dragover{
   padding: 14px 10px;
 }
 
+.history-actions button {
+  display: inline-flex;
+  align-items: center;
+}
 
+.history-actions .btn-icon {
+  display: inline-flex;
+  margin-right: 6px;
+}
 
-
+.history-actions .icon {
+  width: 12px;
+  height: 12px;
+}
 
 
 /* Generic collapsible "card" (re-usable for Export schema, Batch options, etc.) */
