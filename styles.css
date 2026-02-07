@@ -397,6 +397,17 @@ button.small{
   font-size: 12px;
 }
 
+.btn-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 8px;
+}
+.btn-label {
+  display: inline-block;
+}
+
 /* Keyboard focus */
 button:focus-visible,
 .btn:focus-visible,
