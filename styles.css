@@ -806,9 +806,12 @@ textarea.dragover{
   margin-right: 6px;
 }
 
-.history-actions .icon{
-  width: 12px;
-  height: 12px;
+.history-actions .btn-icon svg,
+.history-actions svg.icon {
+  width: 14px;
+  height: 14px;
+  display: block;          /* avoids baseline weirdness */
+  flex: 0 0 auto;
 }
 
 /* ------------------------------------------------------------------ */
