@@ -20,7 +20,7 @@
         <div class="title-row">
           <h1>Link File Generator</h1>
 
-            <div class="settings">
+          <div class="settings">
 
             <button id="settingsBtn" type="button" class="icon-btn" aria-label="Settings" aria-haspopup="menu" aria-expanded="false">
               <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -33,7 +33,7 @@
                 Toggle theme
               </button>
 
-              <button id="factoryResetBtn" type="button" class="btn danger secondary small" role="menuitem">
+              <button id="factoryResetBtn" type="button" class="btn secondary small danger" role="menuitem">
                 Factory reset
               </button>
 
@@ -185,7 +185,7 @@
 
           <span class="spacer"></span>
 
-          <button id="resetBtn" type="button" class="btn danger secondary small">
+          <button id="resetBtn" type="button" class="btn secondary small danger">
             <svg class="icon" aria-hidden="true">
               <use href="#i-clear"></use>
             </svg>
@@ -318,14 +318,14 @@
           <div class="dropzone-row">
             <div class="dropzone-text">
               <strong>Import:</strong> Drag &amp; drop a Batch File, CSV, or JSON
-              <small>Supported: .json (batch/export/url list), .csv (url column), .txt (one URL per line)</small>
+              <small>Supported: .json (batch/export/url list), .csv (url column), .txt (one URL per line), .url, .webloc, .html</small>
             </div>
 
             <button id="chooseImportBtn" type="button" class="btn secondary">Choose file</button>
             <input
               id="importAnyFileInput"
               type="file"
-              accept=".json,.csv,.txt,application/json,text/csv,text/plain"
+              accept=".json,.csv,.txt,.url,.webloc,.html,.htm,application/json,text/csv,text/plain,text/html,application/internet-shortcut,application/xml,text/xml"
               hidden
             />
           </div>
@@ -513,7 +513,7 @@
 
             <span class="actions-row-spacer"></span>
 
-            <button id="resetBtnBatch" type="button" class="btn danger secondary small">
+            <button id="resetBtnBatch" type="button" class="btn secondary small danger">
               <svg class="icon" aria-hidden="true"><use href="#i-clear"></use></svg>
               Clear
             </button>
@@ -544,8 +544,6 @@
         </div>
       </section>
         
-
-
       <!-- Secondary / bottom stack -->
       <section class="bottom-stack">
         <div id="status" class="status" aria-live="polite"></div>
@@ -586,31 +584,6 @@
 
     </div>
   </main>
-
-  <!-- Local/offline vendor libs -->
-  <script src="./vendor/jszip.min.js"></script>
-  <script src="./vendor/qrcode.js"></script>
-
-  <!-- Lib files -->
-  <script src="./lib/ui.js"></script>
-  <script src="./lib/url.js"></script>
-  <script src="./lib/batch.js"></script>
-  <script src="./lib/batch-file.js"></script>
-  <script src="./lib/import-json.js"></script>
-  <script src="./lib/import-files.js"></script>
-  <script src="./lib/qr.js"></script>
-  <script src="./lib/export.js"></script>
-  <script src="./lib/export-schema.js"></script>
-  <script src="./lib/output-builders.js"></script>
-  <script src="./lib/download.js"></script>
-  <script src="./lib/zip.js"></script>
-  <script src="./lib/errors.js"></script>
-  <script src="./lib/actions.js"></script>
-  <script src="./lib/history.js"></script>
-  <script src="./lib/state.js"></script>
-  <script src="./lib/theme.js"></script>
-
-  <script src="./app.js"></script>
 
   <!-- ===================================================== -->
   <!-- SVG ICON SPRITE (shared icons) -->
@@ -679,6 +652,31 @@
     </symbol>
 
   </svg>
+
+  <!-- Local/offline vendor libs -->
+  <script src="./vendor/jszip.min.js"></script>
+  <script src="./vendor/qrcode.js"></script>
+
+  <!-- Lib files -->
+  <script src="./lib/ui.js"></script>
+  <script src="./lib/url.js"></script>
+  <script src="./lib/batch.js"></script>
+  <script src="./lib/batch-file.js"></script>
+  <script src="./lib/import-json.js"></script>
+  <script src="./lib/import-files.js"></script>
+  <script src="./lib/qr.js"></script>
+  <script src="./lib/export.js"></script>
+  <script src="./lib/export-schema.js"></script>
+  <script src="./lib/output-builders.js"></script>
+  <script src="./lib/download.js"></script>
+  <script src="./lib/zip.js"></script>
+  <script src="./lib/errors.js"></script>
+  <script src="./lib/actions.js"></script>
+  <script src="./lib/history.js"></script>
+  <script src="./lib/state.js"></script>
+  <script src="./lib/theme.js"></script>
+
+  <script src="./app.js"></script>
 
 </body>
 </html>
