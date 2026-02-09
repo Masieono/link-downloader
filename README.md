@@ -7,9 +7,8 @@ This app supports:
 - **Batch mode**: paste/import many URLs and download a ZIP containing generated link files, optional exports, and optional QR codes
 
 ## Live site (GitHub Pages)
-The app is available here:
 
-- https://<your-username>.github.io/<your-repo>/
+[The app is available here](https://masieono.github.io/link-downloader/)
 
 ## Features
 
